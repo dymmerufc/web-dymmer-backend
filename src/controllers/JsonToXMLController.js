@@ -4,7 +4,7 @@ const tmp = require("tmp");
 exports.post = (req, res) => {
     const { featureModel, withContexts } = req.body;
 
-    const featureModelStr = convertJsonToXML(featureModel, withContexts);
+    const featureModelStr = convertJsonToXML(featureModel);
 
     const { name: fileName } = tmp.fileSync({
         prefix: "feature-model",
