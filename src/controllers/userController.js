@@ -19,11 +19,11 @@ const register = async (req, res) => {
         const newUser = await userModel.create(req.body);
 
         // so that the password is not shown on return
-        userModel.password = undefined;
+        newUser.password = undefined;
 
         return res.status(200).send({
-            user: userModel,
-            token: generateToken({ id: userModel.id })
+            user: newUser,
+            token: generateToken({ id: newUser.id })
         });
     } catch (err) {
         return res.status(400).send({ error: 'Registration failed' });

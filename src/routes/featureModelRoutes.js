@@ -4,12 +4,11 @@ const authMiddleware = require('../middlewares/authentication');
 
 const router = express.Router();
 
-// router.use(authMiddleware);
-
-router.post('/create', featureModelController.create);
-router.get('/list', featureModelController.list);
-router.get('/get/:featureModelId', featureModelController.get);
-router.put('/update/:featureModelId', featureModelController.update);
-router.delete('/remove/:featureModelId', featureModelController.remove);
+router.post('/create', [authMiddleware], featureModelController.create);
+router.get('/list', [authMiddleware], featureModelController.list);
+router.get('/get/:featureModelId', [authMiddleware], featureModelController.get);
+router.get('/get-by-user', [authMiddleware], featureModelController.listByUser);
+router.put('/update/:featureModelId', [authMiddleware], featureModelController.update);
+router.delete('/remove/:featureModelId', [authMiddleware], featureModelController.remove);
 
 module.exports = router;

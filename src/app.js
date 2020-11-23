@@ -5,11 +5,17 @@ const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
+const helmet = require('helmet');
+const morgan = require("morgan");
+const compression = require('compression');
 
 app.use(cors());
 app.use(fileUpload());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(compression());
+app.use(helmet());
+app.use(morgan("tiny"))
 
 // load routes
 const indexRoutes = require("./routes/indexRoutes");

@@ -6,7 +6,7 @@ const valeMethod = require('../core/thresholdcalculationmethods/vale');
 const run = async (req, res) => {
     try {
         // get all feature models
-        const featureModelList = await featureModel.find();
+        const featureModelList = await featureModel.find({ useInThresholds:true });
         // get all quality measures
         const qualityMeasureList = await qualityMeasure.find();
 
