@@ -2,7 +2,7 @@ const fs = require("fs");
 const tmp = require("tmp");
 const PDFDocumentWithTables = require("../util/PDFDocumentWithTables");
 
-function exportToPDF(req, res) {
+async function exportToPDF(req, res) {
     const { dataDescription, data } = req.body;
 
     const { name: fileName } = tmp.fileSync({
@@ -12,7 +12,9 @@ function exportToPDF(req, res) {
 
     const doc = new PDFDocumentWithTables({ layout: "landscape" });
 
-    doc.pipe(fs.createWriteStream(fileName));
+    const fileStream = fs.createWriteStream(fileName);
+
+    doc.pipe(fileStream);
 
     const table = {
         headers: dataDescription,
@@ -25,7 +27,11 @@ function exportToPDF(req, res) {
 
     doc.end();
 
-    return res.download(fileName);
+    await new Promise((resolve) => {
+        fileStream.on("finish", () => resolve());
+    });
+
+    res.download(fileName);
 }
 
 function exportToCSV(req, res) {
@@ -41,8 +47,6 @@ function exportToCSV(req, res) {
     data.forEach((element) => {
         csvStr += `${element.join(",")}\n`;
     });
-
-    fs.writeFileSync(fileName, csvStr);
 
     return res.download(fileName);
 }
