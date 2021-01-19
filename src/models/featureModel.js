@@ -8,7 +8,19 @@ const featureModelSchema = new mongoose.Schema({
     public: {
         type: Boolean,
         required: true,
+        default: false,
+    },
+    user: {
+        type: String,
+        default: "",
+    },
+    allowEdit: {
+        type: Boolean,
         default: true,
+    },
+    useInThresholds: {
+        type: Boolean,
+        default: false,
     },
     createdAt: {
         type: Date,

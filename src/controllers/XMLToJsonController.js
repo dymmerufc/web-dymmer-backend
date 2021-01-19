@@ -1,8 +1,11 @@
 const DOMParser = require("xmldom").DOMParser;
+const numberOfFeatures = require("../core/qualitymeasures/numberOfFeatures");
 
-exports.post = (req, res) => {
+exports.post = async (req, res) => {
     let json = convertXMLToJson(req.body.xmlString);
-    res.status(200).send(json);
+    const fModel = JSON.parse(json);
+    let number_of_features = await numberOfFeatures.execute(fModel)
+    res.status(200).send(JSON.stringify({...fModel, number_of_features}));
 };
 
 /* convert the XML document to json */

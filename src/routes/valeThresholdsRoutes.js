@@ -4,9 +4,7 @@ const authMiddleware = require('../middlewares/authentication');
 
 const router = express.Router();
 
-// router.use(authMiddleware);
-
-router.post('/run', valeMethodController.run);
-router.get('/thresholds', valeMethodController.getThresholds);
+router.post('/run',  [authMiddleware], valeMethodController.run);
+router.get('/thresholds',  [authMiddleware], valeMethodController.getThresholds);
 
 module.exports = router;

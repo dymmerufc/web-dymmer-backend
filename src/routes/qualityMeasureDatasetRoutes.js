@@ -4,12 +4,10 @@ const authMiddleware = require('../middlewares/authentication');
 
 const router = express.Router();
 
-// router.use(authMiddleware);
-
-router.post('/create', qualityMeasureDatasetController.create);
-router.get('/list', qualityMeasureDatasetController.list);
-router.get('/get/:qualityMeasureDatasetId', qualityMeasureDatasetController.get);
-router.put('/update/:qualityMeasureDatasetId', qualityMeasureDatasetController.update);
-router.delete('/remove/:qualityMeasureDatasetId', qualityMeasureDatasetController.remove);
+router.post('/create',  [authMiddleware], qualityMeasureDatasetController.create);
+router.get('/list',  [authMiddleware], qualityMeasureDatasetController.list);
+router.get('/get/:qualityMeasureDatasetId',  [authMiddleware], qualityMeasureDatasetController.get);
+router.put('/update/:qualityMeasureDatasetId',  [authMiddleware], qualityMeasureDatasetController.update);
+router.delete('/remove/:qualityMeasureDatasetId',  [authMiddleware], qualityMeasureDatasetController.remove);
 
 module.exports = router;
