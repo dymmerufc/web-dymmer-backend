@@ -42,10 +42,10 @@ const authenticate = async (req, res) => {
         return res.status(400).send({ error: 'Invalid password' });
 
     // so that the password is not shown on return
-    userModel.password = undefined;
+    loggedUser.password = undefined;
 
     return res.status(200).send({
-        user: userModel,
+        user: loggedUser,
         token: generateToken({ id: loggedUser.id })
     });
 }
