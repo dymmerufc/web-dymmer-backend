@@ -13,6 +13,7 @@ app.use(cors());
 app.use(fileUpload());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(bodyParser({ limit: '10mb' }));
 app.use(compression());
 app.use(helmet());
 app.use(morgan("tiny"))
